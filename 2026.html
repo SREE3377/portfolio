@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sreenath R | AI/ML Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: #111827;
+      --accent: #10b981;
+      --text: #f3f4f6;
+      --secondary: #9ca3af;
+      --contact-card: #1f2937;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    .menu-dots {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px;
+    }
+
+    .menu-dots div {
+      width: 5px; height: 5px;
+      background-color: var(--accent);
+      border-radius: 50%;
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: 60px; right: 20px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      width: 160px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .nav-menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 20px;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover {
+      background: rgba(16,185,129,0.1);
+      color: var(--accent);
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .intro-text {
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #64748b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero .subtitle {
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .btn-container { display: flex; gap: 15px; }
+
+    .btn-main {
+      background: var(--accent);
+      color: #030712;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    .section-title-frame {
+      display: inline-block;
+      border: 2px solid var(--accent);
+      padding: 10px 25px;
+      border-radius: 12px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ---------- REVEAL CARD ---------- */
+    .reveal-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .reveal-card h3, .reveal-card h4 {
+      margin-bottom: 0;
+      transition: margin 0.4s ease;
+    }
+
+    .reveal-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .reveal-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .reveal-card:hover h3, .reveal-card:hover h4 {
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    .reveal-card:hover .reveal-content {
+      max-height: 1000px; 
+      opacity: 1;
+      padding-top: 10px;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(16,185,129,0.1);
+      color: var(--accent);
+      border-radius: 12px;
+      margin: 0.3rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .percentage-badge {
+      background: rgba(16,185,129,0.2);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      float: right;
+    }
+
+    /* ---------- GRID BOX STYLE ---------- */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-box {
+      background: var(--contact-card);
+      padding: 2.5rem 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+      border: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grid-box:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      background: #111827;
+    }
+
+    .icon-large { font-size: 2rem; }
+    .label-bold { font-weight: 800; font-size: 1.1rem; }
+    .sub-text { font-size: 0.85rem; color: var(--secondary); }
+
+    .bullet-list {
+      list-style-type: none;
+      color: var(--secondary);
+      margin-left: 10px;
+      text-align: left;
+    }
+
+    .bullet-list li::before {
+      content: "▹ ";
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 4rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+
+<body onclick="closeMenu()">
+
+<nav>
+  <div class="nav-container">
+    <div class="menu-dots" onclick="toggleMenu(event)">
+      <div></div><div></div><div></div>
+    </div>
+    <div class="nav-menu" id="dropdownMenu">
+      <a href="#">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#internship">Internship</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <span class="intro-text">Hi all, I’m Sree here 👋</span>
+  <h1>SREENATH R</h1>
+  <p class="subtitle">Aspiring AI/ML Engineer</p>
+  <div class="btn-container">
+    <a href="mailto:sreenath9894@gmail.com" class="btn-main">Get In Touch</a>
+    <a href="RESUME.pdf" target="_blank" class="btn-outline">View Resume</a>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="section-title-frame"><h2>Skills</h2></div>
+  <div class="reveal-card">
+    <h4>Technical Expertise</h4>
+    <div class="reveal-content">
+      <p style="margin-bottom: 10px; color: var(--accent); font-weight: 600;">Languages & Databases</p>
+      <div class="skill-tag">Python</div>
+      <div class="skill-tag">C++</div>
+      <div class="skill-tag">MySQL</div>
+      <div class="skill-tag">MongoDB</div>
+      <p style="margin: 15px 0 10px; color: var(--accent); font-weight: 600;">Core Concepts</p>
+      <div class="skill-tag">Data Structures and Algorithms (DSA)</div>
+      <div class="skill-tag">Object-Oriented Programming (OOP)</div>
+    </div>
+  </div>
+</section>
+
+<section id="internship">
+  <div class="section-title-frame"><h2>Internship</h2></div>
+  <div class="reveal-card">
+    <h3>International Internship Program</h3>
+    <div class="reveal-content">
+      <p style="color: var(--accent); font-weight: 600;">Malaysia (2023-2024)</p>
+      <ul class="bullet-list">
+        <li>Gained international exposure to software development and AI practices.</li>
+        <li>Visited Microsoft Malaysia and interacted with industry professionals.</li>
+        <li>Developed teamwork and communication through cross-cultural collaboration.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-title-frame"><h2>Projects</h2></div>
+  
+  <div class="reveal-card">
+    <h3>Mental Health Chatbot</h3>
+    <div class="reveal-content">
+      <p style="color: var(--accent); font-weight: 600; margin-bottom: 10px;">Goal: AI Support System</p>
+      <ul class="bullet-list">
+        <li>Built an AI chatbot designed to support mental health, aligned with SDG 3.</li>
+        <li>Implemented features to provide emotional support, coping strategies, and intelligent conversations.</li>
+        <li><strong>Tools Used:</strong> Groq API, NLP (Natural Language Processing), Python.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reveal-card">
+    <h3>Car Parking Lot Prediction</h3>
+    <div class="reveal-content">
+      <p style="color: var(--accent); font-weight: 600; margin-bottom: 10px;">Goal: Smart Parking Detection</p>
+      <ul class="bullet-list">
+        <li>Developed a system to detect and predict available parking spaces in real-time.</li>
+        <li>Utilized edge detection, contour analysis, and background subtraction for accurate identification.</li>
+        <li><strong>Tools Used:</strong> OpenCV, Python.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reveal-card">
+    <h3>Complaint Management System</h3>
+    <div class="reveal-content">
+      <p style="color: var(--accent); font-weight: 600; margin-bottom: 10px;">Goal: Transparent Resolution Tracking</p>
+      <ul class="bullet-list">
+        <li>Created a database-driven application for registration and tracking of user complaints.</li>
+        <li>Focused on improving efficiency and transparency in resolution workflows.</li>
+        <li><strong>Tools Used:</strong> SQL (MySQL/MongoDB), Backend Development Frameworks.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-title-frame"><h2>Education</h2></div>
+  <div class="reveal-card">
+    <h3>SRM University, Trichy</h3>
+    <div class="reveal-content">
+      <span class="percentage-badge">CGPA: 7.8/10</span>
+      <p>B.Tech in Computer Science and Engineering (AIML)</p>
+      <p style="color: var(--secondary); font-size: 0.9rem;">Expected Graduation: 2026</p>
+    </div>
+  </div>
+  <div class="reveal-card">
+    <h3>Secondary Education</h3>
+    <div class="reveal-content">
+      <p><strong>Golden Gates Matric Hr Sec School</strong></p>
+      <p>12th Grade: 81% (2022) | 10th Grade: 85% (2020)</p>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-title-frame"><h2>Certifications</h2></div>
+  <div class="grid-container">
+    <div class="grid-box">
+      <span class="icon-large">🏅</span>
+      <span class="label-bold">ServiceNow</span>
+      <span class="sub-text">Micro Certification</span>
+    </div>
+    <div class="grid-box">
+      <span class="icon-large">🏅</span>
+      <span class="label-bold">MongoDB</span>
+      <span class="sub-text">Developer Certification</span>
+    </div>
+    <div class="grid-box">
+      <span class="icon-large">🏅</span>
+      <span class="label-bold">IBM SQL</span>
+      <span class="sub-text">Coursera Professional</span>
+    </div>
+    <div class="grid-box">
+      <span class="icon-large">🏅</span>
+      <span class="label-bold">Cisco</span>
+      <span class="sub-text">Computer Networking</span>
+    </div>
+    <div class="grid-box">
+      <span class="icon-large">📜</span>
+      <span class="label-bold">Microsoft</span>
+      <span class="sub-text">Appreciation Certificate</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-title-frame"><h2>Contact</h2></div>
+  <div class="grid-container">
+    <a href="mailto:sreenath9894@gmail.com" class="grid-box">
+      <span class="icon-large">📩</span>
+      <span class="label-bold">Email</span>
+      <span class="sub-text">sreenath9894@gmail.com</span>
+    </a>
+    <a href="https://linkedin.com/in/sreenath-r33" target="_blank" class="grid-box">
+      <span class="icon-large">🔗</span>
+      <span class="label-bold">LinkedIn</span>
+      <span class="sub-text">sreenath-r33</span>
+    </a>
+    <a href="https://github.com/SREE3377" target="_blank" class="grid-box">
+      <span class="icon-large">💻</span>
+      <span class="label-bold">GitHub</span>
+      <span class="sub-text">SREE3377</span>
+    </a>
+    <div class="grid-box">
+      <span class="icon-large">📞</span>
+      <span class="label-bold">Phone</span>
+      <span class="sub-text">+91 98946 50393</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Sreenath R • Built with Passion</p>
+</footer>
+
+<script>
+function toggleMenu(e){
+  e.stopPropagation();
+  const m = document.getElementById("dropdownMenu");
+  m.style.display = m.style.display === "flex" ? "none" : "flex";
+}
+function closeMenu(){
+  document.getElementById("dropdownMenu").style.display = "none";
+}
+</script>
+
+</body>
+</html>
